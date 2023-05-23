@@ -1,0 +1,70 @@
+﻿<Window x:Class="CycleApp.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CycleApp.App"
+        mc:Ignorable="d"
+        WindowStyle="None" WindowStartupLocation="Manual" ResizeMode="NoResize"
+        Loaded="Window_Loaded" Closing="Window_Closing"
+        Title="MainWindow" Height="200" Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>            
+            <Grid x:Name="Grd_CycleBackground">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Viewbox Grid.Column="0" Margin="20, 40">
+                    <TextBlock x:Name="TBlo_CycleCount"/>
+                </Viewbox>
+                <Viewbox Grid.Column="1" Margin="20, 40">
+                    <TextBlock x:Name="TBlo_CycleTimer"/>
+                </Viewbox>
+            </Grid>
+            <Grid Grid.RowSpan="2" >
+                <Image x:Name="Img_Activate" Source="/Resource/Activated.jpg" Opacity="0.0"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="조이는 시간" />
+                <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="쉬는 시간" />
+                <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="회수" />
+                <TextBox x:Name="TBox_Time" Text="10" Grid.Row="0" Grid.Column="1" Margin="3" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
+                <TextBox x:Name="TBox_RestTime" Text="2" Grid.Row="1" Grid.Column="1" Margin="3" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
+                <TextBox x:Name="TBox_Cycle" Text="30" Grid.Row="2" Grid.Column="1" Margin="3" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
+
+                <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Sec" />
+                <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Sec" />
+                <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="회" />
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="Btn_Start" Grid.Row="0" Margin="5" Content="Start" Click="Btn_Start_Click"/>
+            <Button x:Name="Btn_Stop" Grid.Row="1" Margin="5" Content="Stop" Click="Btn_Stop_Click" IsEnabled="False"/>
+            <Button x:Name="Btn_AppClose" Grid.Row="2" Margin="5" Content="Close" Click="Btn_AppClose_Click"/>
+        </Grid>
+    </Grid>
+</Window>

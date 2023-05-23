@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>running.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resource\Activated.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="running.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resource\Activated.jpg" />
+  </ItemGroup>
+
+</Project>
