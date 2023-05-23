@@ -8,7 +8,7 @@
         WindowStyle="None" WindowStartupLocation="Manual" ResizeMode="NoResize"
         Loaded="Window_Loaded" Closing="Window_Closing"
         Title="MainWindow" Height="200" Width="300">
-    <Grid>
+    <Grid x:Name="Grd_CycleBackground">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="*"/>
@@ -18,7 +18,7 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>            
-            <Grid x:Name="Grd_CycleBackground">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>

@@ -53,6 +53,27 @@ namespace CycleApp.App
             {
                 if (m_CycleStopwatch.ElapsedMilliseconds > int.Parse(TBox_Time.Text) * 1000)
                 {
+                    Random rActivate = new Random();
+                    int nActivateSetValue = 0;
+
+                    while(true)
+                    {
+                        nActivateSetValue = rActivate.Next(100);
+                        if (m_nRam != nActivateSetValue)
+                        {
+                            break;
+                        }
+                    }
+
+                    if(nActivateSetValue < 10)
+                    {
+                        m_bActivated = true;
+                    }
+                    else
+                    {
+                        m_bActivated = false;
+                    }
+
                     m_nCycle++;
                     m_bRest = true;
                     m_CycleStopwatch.Restart();
@@ -100,7 +121,7 @@ namespace CycleApp.App
             }
             else
             {
-                Grd_CycleBackground.Background = new SolidColorBrush(Colors.Red);
+                Img_Activate.Opacity = 0;
                 if (m_CycleStopwatch.ElapsedMilliseconds > int.Parse(TBox_RestTime.Text) * 1000)
                 {
                     m_bRest = false;
@@ -188,6 +209,16 @@ namespace CycleApp.App
             return true;
         }
 
+        private void UISetting(bool bStart)
+        {
+            Btn_Start.IsEnabled = !bStart;
+            Btn_Stop.IsEnabled = bStart;
+
+            TBox_Time.IsEnabled = !bStart;
+            TBox_RestTime.IsEnabled = !bStart;
+            TBox_Cycle.IsEnabled = !bStart;
+        }
+
         private void Btn_Start_Click(object sender, RoutedEventArgs e)
         {
             m_bActivated = false;
@@ -202,8 +233,7 @@ namespace CycleApp.App
             m_CycleTimer.Start();
             m_CycleStopwatch.Restart();
 
-            Btn_Start.IsEnabled = false;
-            Btn_Stop.IsEnabled = true;
+            UISetting(true);
         }
 
         private void Btn_Stop_Click(object sender, RoutedEventArgs e)
@@ -219,8 +249,7 @@ namespace CycleApp.App
             Img_Activate.Opacity = 0;
             m_bActivated = false;
 
-            Btn_Start.IsEnabled = true;
-            Btn_Stop.IsEnabled = false;
+            UISetting(false);
         }
 
         private void Btn_AppClose_Click(object sender, RoutedEventArgs e)
