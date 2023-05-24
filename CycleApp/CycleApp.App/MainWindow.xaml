@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CycleApp.App"
+        xmlns:resc = "clr-namespace:CycleApp.App.Resources"
         mc:Ignorable="d"
         WindowStyle="None" WindowStartupLocation="Manual" ResizeMode="NoResize"
-        Loaded="Window_Loaded" Closing="Window_Closing"
+        Loaded="Window_Loaded"
         Title="MainWindow" Height="200" Width="300">
     <Grid x:Name="Grd_CycleBackground">
         <Grid.ColumnDefinitions>
@@ -23,15 +24,15 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                <Viewbox Grid.Column="0" Grid.ColumnSpan="2" Margin="20, 40">
+                    <TextBlock x:Name="TBlo_Done"/>
+                </Viewbox>
                 <Viewbox Grid.Column="0" Margin="20, 40">
                     <TextBlock x:Name="TBlo_CycleCount"/>
                 </Viewbox>
                 <Viewbox Grid.Column="1" Margin="20, 40">
                     <TextBlock x:Name="TBlo_CycleTimer"/>
                 </Viewbox>
-            </Grid>
-            <Grid Grid.RowSpan="2" >
-                <Image x:Name="Img_Activate" Source="/Resource/Activated.jpg" Opacity="0.0"/>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -44,16 +45,16 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="집중 시간" />
-                <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="쉬는 시간" />
-                <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="회수" />
-                <TextBox x:Name="TBox_Time" Text="10" Grid.Row="0" Grid.Column="1" Margin="3" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
-                <TextBox x:Name="TBox_RestTime" Text="2" Grid.Row="1" Grid.Column="1" Margin="3" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
-                <TextBox x:Name="TBox_Cycle" Text="30" Grid.Row="2" Grid.Column="1" Margin="3" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
+                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="{x:Static resc:Strings.MainWin_ExercisesTimeTitle}" />
+                <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="{x:Static resc:Strings.MainWin_RestTimeTitle}" />
+                <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="{x:Static resc:Strings.MainWin_CycleCountTitle}" />
+                <TextBox x:Name="TBox_Time" Text="10" Grid.Row="0" Grid.Column="1" Margin="3" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" LostFocus="TextBox_LostFocus"/>
+                <TextBox x:Name="TBox_RestTime" Text="2" Grid.Row="1" Grid.Column="1" Margin="3" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" LostFocus="TextBox_LostFocus"/>
+                <TextBox x:Name="TBox_Cycle" Text="30" Grid.Row="2" Grid.Column="1" Margin="3" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" LostFocus="TextBox_Cycle_LostFocus"/>
 
-                <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Sec" />
-                <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Sec" />
-                <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="회" />
+                <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resc:Strings.MainWin_ExercisesTimeUnit}" />
+                <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resc:Strings.MainWin_RestTimeUnit}" />
+                <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resc:Strings.MainWin_CycleCountUnit}" />
             </Grid>
         </Grid>
         <Grid Grid.Column="1">
@@ -62,9 +63,9 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button x:Name="Btn_Start" Grid.Row="0" Margin="5" Content="Start" Click="Btn_Start_Click"/>
-            <Button x:Name="Btn_Stop" Grid.Row="1" Margin="5" Content="Stop" Click="Btn_Stop_Click" IsEnabled="False"/>
-            <Button x:Name="Btn_AppClose" Grid.Row="2" Margin="5" Content="Close" Click="Btn_AppClose_Click"/>
+            <Button x:Name="Btn_Start" Grid.Row="0" Margin="5" Content="{x:Static resc:Strings.MainWin_StartButton}" Click="Btn_Start_Click"/>
+            <Button x:Name="Btn_Stop" Grid.Row="1" Margin="5" Content="{x:Static resc:Strings.MainWin_StopButton}" Click="Btn_Stop_Click" IsEnabled="False"/>
+            <Button x:Name="Btn_AppClose" Grid.Row="2" Margin="5" Content="{x:Static resc:Strings.MainWin_CloseButton}" Click="Btn_AppClose_Click"/>
         </Grid>
     </Grid>
 </Window>

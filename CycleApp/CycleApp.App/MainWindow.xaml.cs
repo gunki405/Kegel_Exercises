@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
+using System.Globalization;
+using System.Resources;
 
 namespace CycleApp.App
 {
@@ -15,7 +17,6 @@ namespace CycleApp.App
         private DispatcherTimer m_CycleTimer;
         private Stopwatch m_CycleStopwatch;
 
-        private bool m_bActivated = false;
         private bool m_bRest = false;
         private int m_nCycle = 0;
         private int m_nRam = 0;
@@ -23,6 +24,11 @@ namespace CycleApp.App
         public MainWindow()
         {
             InitializeComponent();
+
+            TBox_Time.Text = string.Format("{0}", Properties.Settings.Default.Last_ExerciseTime);
+            TBox_RestTime.Text = string.Format("{0}", Properties.Settings.Default.Last_RestTime);
+            TBox_Cycle.Text = string.Format("{0}", Properties.Settings.Default.Last_CycleCount);
+
             m_CycleTimer = new DispatcherTimer();
             m_CycleTimer.Interval = TimeSpan.FromMicroseconds(500);
             m_CycleTimer.Tick += CycleTimer_CallBack;
@@ -35,21 +41,15 @@ namespace CycleApp.App
             m_CycleTimer.Stop();
             if (m_nCycle >= int.Parse(TBox_Cycle.Text))
             {
+                TBlo_Done.Text = CycleApp.App.Resources.Strings.MainWin_EndMessage;
                 TBlo_CycleCount.Text = string.Empty;
                 TBlo_CycleTimer.Text = string.Empty;
                 Grd_CycleBackground.Background = new SolidColorBrush(Colors.White);
-                Img_Activate.Opacity = 0;
                 UISetting(false);
-
-                MessageBox.Show("수고하셨습니다!!");
                 return;
             }
-            if (m_bActivated)
-            {
-                this.Topmost = true;
-            }
 
-            TBlo_CycleCount.Text = string.Format("{0}회\r\n남음", int.Parse(TBox_Cycle.Text) - m_nCycle);
+            TBlo_CycleCount.Text = string.Format(CycleApp.App.Resources.Strings.MainWin_RemainCountString, int.Parse(TBox_Cycle.Text) - m_nCycle);
             if (!m_bRest)
             {
                 if (m_CycleStopwatch.ElapsedMilliseconds > int.Parse(TBox_Time.Text) * 1000)
@@ -60,48 +60,28 @@ namespace CycleApp.App
                 }
                 else
                 {
-                    TBlo_CycleTimer.Text = string.Format("집중 시간\r\n{0}초\r\n남음", int.Parse(TBox_Time.Text) - (m_CycleStopwatch.ElapsedMilliseconds / 1000));
+                    TBlo_CycleTimer.Text = string.Format(CycleApp.App.Resources.Strings.MainWin_RemainExerciseTimeString, int.Parse(TBox_Time.Text) - (m_CycleStopwatch.ElapsedMilliseconds / 1000));
                     if (m_CycleStopwatch.ElapsedMilliseconds > 1000)
                     {
-                        if (m_bActivated)
+                        Color color;
+                        if ((int.Parse(TBox_Time.Text) - (m_CycleStopwatch.ElapsedMilliseconds / 1000)) <= 0)
                         {
-                            if ((int.Parse(TBox_Time.Text) - (m_CycleStopwatch.ElapsedMilliseconds / 1000)) <= 0)
-                            {
-                                Img_Activate.Opacity = 1;
-                            }
-                            else
-                            {
-                                double nChecking = int.Parse(TBox_Time.Text) - (m_CycleStopwatch.ElapsedMilliseconds / 1000);
-                                Img_Activate.Opacity = 1.0 / nChecking;
-                            }
+                            color = Color.FromArgb(255, 0, 255, 0);
                         }
                         else
                         {
-                            Color color;
-                            if ((int.Parse(TBox_Time.Text) - (m_CycleStopwatch.ElapsedMilliseconds / 1000)) <= 0)
-                            {
-                                color = Color.FromArgb(255, 0, 255, 0);
-                            }
-                            else
-                            {
-                                color = Color.FromArgb((byte)(255 / (int.Parse(TBox_Time.Text) - (m_CycleStopwatch.ElapsedMilliseconds / 1000))), 0, 255, 0);
-                            }
-                            Grd_CycleBackground.Background = new SolidColorBrush(color);
+                            color = Color.FromArgb((byte)(255 / (int.Parse(TBox_Time.Text) - (m_CycleStopwatch.ElapsedMilliseconds / 1000))), 0, 255, 0);
                         }
+                        Grd_CycleBackground.Background = new SolidColorBrush(color);
                     }
                     else
                     {
-                        if (m_bActivated)
-                        {
-                            Img_Activate.Opacity = 0;
-                        }
                         Grd_CycleBackground.Background = new SolidColorBrush(Colors.White);
                     }
                 }
             }
             else
             {
-                Img_Activate.Opacity = 0;
                 if (m_CycleStopwatch.ElapsedMilliseconds > int.Parse(TBox_RestTime.Text) * 1000)
                 {
                     m_bRest = false;
@@ -109,7 +89,7 @@ namespace CycleApp.App
                 }
                 else
                 {
-                    TBlo_CycleTimer.Text = string.Format("쉬는 시간\r\n{0}초\r\n남음", int.Parse(TBox_RestTime.Text) - (m_CycleStopwatch.ElapsedMilliseconds / 1000));
+                    TBlo_CycleTimer.Text = string.Format(CycleApp.App.Resources.Strings.MainWin_RemainRestTimeString, int.Parse(TBox_RestTime.Text) - (m_CycleStopwatch.ElapsedMilliseconds / 1000));
                     if (m_CycleStopwatch.ElapsedMilliseconds > 1000)
                     {
                         Color color;
@@ -201,13 +181,18 @@ namespace CycleApp.App
 
         private void Btn_Start_Click(object sender, RoutedEventArgs e)
         {
-            m_bActivated = false;
             m_bRest = false;
+            TBlo_Done.Text = string.Empty;
 
             if (Checking_Values() == false)
             {
                 return;
             }
+
+            Properties.Settings.Default.Last_ExerciseTime = int.Parse(TBox_Time.Text);
+            Properties.Settings.Default.Last_RestTime = int.Parse(TBox_RestTime.Text);
+            Properties.Settings.Default.Last_CycleCount = int.Parse(TBox_Cycle.Text);
+            Properties.Settings.Default.Save();
             m_nCycle = 0;
 
             m_CycleTimer.Start();
@@ -218,26 +203,16 @@ namespace CycleApp.App
 
         private void Btn_Stop_Click(object sender, RoutedEventArgs e)
         {
-            if (m_bActivated)
-            {
-                return;
-            }
             m_CycleTimer.Stop();
             TBlo_CycleCount.Text = string.Empty;
             TBlo_CycleTimer.Text = string.Empty;
             Grd_CycleBackground.Background = new SolidColorBrush(Colors.White);
-            Img_Activate.Opacity = 0;
-            m_bActivated = false;
 
             UISetting(false);
         }
 
         private void Btn_AppClose_Click(object sender, RoutedEventArgs e)
         {
-            if (m_bActivated)
-            {
-                return;
-            }
             this.Close();
         }
 
@@ -251,21 +226,46 @@ namespace CycleApp.App
                 e.Handled = true;
                 return;
             }
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
 
             int maxValue = 100;
             int minValue = 1;
 
-            if (!string.IsNullOrEmpty(newText) && int.Parse(newText) > maxValue)
+            if (int.Parse(textBox.Text) > maxValue)
             {
-                e.Handled = true;
                 textBox.Text = maxValue.ToString();
                 textBox.CaretIndex = textBox.Text.Length;
                 return;
             }
 
-            if (!string.IsNullOrEmpty(newText) && int.Parse(newText) < minValue)
+            if (int.Parse(textBox.Text) < minValue)
             {
-                e.Handled = true;
+                textBox.Text = minValue.ToString();
+                textBox.CaretIndex = textBox.Text.Length;
+                return;
+            }
+        }
+
+        private void TextBox_Cycle_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+
+            int maxValue = 50;
+            int minValue = 1;
+
+            if (int.Parse(textBox.Text) > maxValue)
+            {
+                textBox.Text = maxValue.ToString();
+                textBox.CaretIndex = textBox.Text.Length;
+                return;
+            }
+
+            if (int.Parse(textBox.Text) < minValue)
+            {
                 textBox.Text = minValue.ToString();
                 textBox.CaretIndex = textBox.Text.Length;
                 return;
@@ -277,14 +277,6 @@ namespace CycleApp.App
             Window window = (Window)sender;
             window.Left = SystemParameters.WorkArea.Right - window.Width;
             window.Top = SystemParameters.WorkArea.Bottom - window.Height;
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (m_bActivated)
-            {
-                e.Cancel = true;
-            }
         }
     }
 }
