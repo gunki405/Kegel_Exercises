@@ -39,6 +39,7 @@ namespace CycleApp.App
                 TBlo_CycleTimer.Text = string.Empty;
                 Grd_CycleBackground.Background = new SolidColorBrush(Colors.White);
                 Img_Activate.Opacity = 0;
+                UISetting(false);
 
                 MessageBox.Show("수고하셨습니다!!");
                 return;
@@ -53,27 +54,6 @@ namespace CycleApp.App
             {
                 if (m_CycleStopwatch.ElapsedMilliseconds > int.Parse(TBox_Time.Text) * 1000)
                 {
-                    Random rActivate = new Random();
-                    int nActivateSetValue = 0;
-
-                    while(true)
-                    {
-                        nActivateSetValue = rActivate.Next(100);
-                        if (m_nRam != nActivateSetValue)
-                        {
-                            break;
-                        }
-                    }
-
-                    if(nActivateSetValue < 10)
-                    {
-                        m_bActivated = true;
-                    }
-                    else
-                    {
-                        m_bActivated = false;
-                    }
-
                     m_nCycle++;
                     m_bRest = true;
                     m_CycleStopwatch.Restart();
