@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         WindowStyle="None" WindowStartupLocation="Manual" ResizeMode="NoResize"
         Loaded="Window_Loaded"
-        Title="MainWindow" Height="200" Width="300">
+        Title="MainWindow" Height="220" Width="300">
     <Grid x:Name="Grd_CycleBackground">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -16,23 +16,30 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1.5*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>            
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Viewbox Grid.Column="0" Grid.ColumnSpan="2" Margin="20, 40">
-                    <TextBlock x:Name="TBlo_Done"/>
-                </Viewbox>
-                <Viewbox Grid.Column="0" Margin="20, 40">
-                    <TextBlock x:Name="TBlo_CycleCount"/>
-                </Viewbox>
-                <Viewbox Grid.Column="1" Margin="20, 40">
-                    <TextBlock x:Name="TBlo_CycleTimer"/>
-                </Viewbox>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Viewbox Grid.ColumnSpan="2" Margin="10">
+                        <TextBlock x:Name="TBlo_Done"/>
+                    </Viewbox>
+                    <Viewbox Grid.Column="0" Margin="10">
+                        <TextBlock x:Name="TBlo_CycleCount"/>
+                    </Viewbox>
+                    <Viewbox Grid.Column="1" Margin="10">
+                        <TextBlock x:Name="TBlo_CycleTimer"/>
+                    </Viewbox>
+                </Grid>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -44,17 +51,22 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="{x:Static resc:Strings.MainWin_ExercisesTimeTitle}" />
                 <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="{x:Static resc:Strings.MainWin_RestTimeTitle}" />
                 <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="{x:Static resc:Strings.MainWin_CycleCountTitle}" />
-                <TextBox x:Name="TBox_Time" Text="10" Grid.Row="0" Grid.Column="1" Margin="3" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" LostFocus="TextBox_LostFocus"/>
-                <TextBox x:Name="TBox_RestTime" Text="2" Grid.Row="1" Grid.Column="1" Margin="3" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" LostFocus="TextBox_LostFocus"/>
-                <TextBox x:Name="TBox_Cycle" Text="30" Grid.Row="2" Grid.Column="1" Margin="3" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" LostFocus="TextBox_Cycle_LostFocus"/>
+                <TextBox x:Name="TBox_Time" Text="10" Grid.Row="0" Grid.Column="1" Margin="2" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" LostFocus="TextBox_LostFocus"/>
+                <TextBox x:Name="TBox_RestTime" Text="2" Grid.Row="1" Grid.Column="1" Margin="2" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" LostFocus="TextBox_LostFocus"/>
+                <TextBox x:Name="TBox_Cycle" Text="30" Grid.Row="2" Grid.Column="1" Margin="2" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" LostFocus="TextBox_Cycle_LostFocus"/>
 
                 <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resc:Strings.MainWin_ExercisesTimeUnit}" />
                 <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resc:Strings.MainWin_RestTimeUnit}" />
                 <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resc:Strings.MainWin_CycleCountUnit}" />
+
+                <Viewbox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="5, 0">
+                    <CheckBox x:Name="ChkBox_AlwaysVisibleMode" Content="{x:Static resc:Strings.MainWin_TopMost}" HorizontalAlignment="Right" Click="ChkBox_AlwaysVisibleMode_Click" />
+                </Viewbox>
             </Grid>
         </Grid>
         <Grid Grid.Column="1">

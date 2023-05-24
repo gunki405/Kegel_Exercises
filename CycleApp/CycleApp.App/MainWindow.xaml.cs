@@ -6,6 +6,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using System.Globalization;
 using System.Resources;
+using System.Windows.Markup;
 
 namespace CycleApp.App
 {
@@ -17,6 +18,8 @@ namespace CycleApp.App
         private DispatcherTimer m_CycleTimer;
         private Stopwatch m_CycleStopwatch;
 
+
+        private bool m_bReadySet = false;
         private bool m_bRest = false;
         private int m_nCycle = 0;
         private int m_nRam = 0;
@@ -28,9 +31,15 @@ namespace CycleApp.App
             TBox_Time.Text = string.Format("{0}", Properties.Settings.Default.Last_ExerciseTime);
             TBox_RestTime.Text = string.Format("{0}", Properties.Settings.Default.Last_RestTime);
             TBox_Cycle.Text = string.Format("{0}", Properties.Settings.Default.Last_CycleCount);
+            ChkBox_AlwaysVisibleMode.IsChecked = Properties.Settings.Default.Last_AlwaysVisibleMode;
+
+            if (ChkBox_AlwaysVisibleMode.IsChecked == true)
+            {
+                this.Topmost = true;
+            }
 
             m_CycleTimer = new DispatcherTimer();
-            m_CycleTimer.Interval = TimeSpan.FromMicroseconds(500);
+            m_CycleTimer.Interval = TimeSpan.FromMicroseconds(250);
             m_CycleTimer.Tick += CycleTimer_CallBack;
 
             m_CycleStopwatch = new Stopwatch();
@@ -38,14 +47,50 @@ namespace CycleApp.App
 
         private void CycleTimer_CallBack(object sender, EventArgs e)
         {
+            if(ChkBox_AlwaysVisibleMode.IsChecked == true)
+            {
+                this.Topmost = true;
+            }
+            else
+            {
+                this.Topmost = false;
+            }
+
             m_CycleTimer.Stop();
             if (m_nCycle >= int.Parse(TBox_Cycle.Text))
             {
+                m_bReadySet = false;
                 TBlo_Done.Text = CycleApp.App.Resources.Strings.MainWin_EndMessage;
                 TBlo_CycleCount.Text = string.Empty;
                 TBlo_CycleTimer.Text = string.Empty;
                 Grd_CycleBackground.Background = new SolidColorBrush(Colors.White);
                 UISetting(false);
+                return;
+            }
+
+            if(m_bReadySet)
+            {
+                switch((int)(m_CycleStopwatch.ElapsedMilliseconds / 1000))
+                {
+                    case 0:
+                        Grd_CycleBackground.Background = new SolidColorBrush(Colors.IndianRed);
+                        TBlo_Done.Text = "Ready...3";
+                        break;
+                    case 1:
+                        Grd_CycleBackground.Background = new SolidColorBrush(Colors.LightYellow);
+                        TBlo_Done.Text = "Ready...2";
+                        break;
+                    case 2:
+                        Grd_CycleBackground.Background = new SolidColorBrush(Colors.LightGreen);
+                        TBlo_Done.Text = "Ready...1";
+                        break;
+                    case 3:
+                        TBlo_Done.Text = string.Empty;
+                        m_CycleStopwatch.Restart();
+                        m_bReadySet = false;
+                        break;
+                }
+                m_CycleTimer.Start();
                 return;
             }
 
@@ -109,7 +154,6 @@ namespace CycleApp.App
                     }
                 }
             }
-
 
             m_CycleTimer.Start();
         }
@@ -192,9 +236,11 @@ namespace CycleApp.App
             Properties.Settings.Default.Last_ExerciseTime = int.Parse(TBox_Time.Text);
             Properties.Settings.Default.Last_RestTime = int.Parse(TBox_RestTime.Text);
             Properties.Settings.Default.Last_CycleCount = int.Parse(TBox_Cycle.Text);
+            Properties.Settings.Default.Last_AlwaysVisibleMode = (bool)ChkBox_AlwaysVisibleMode.IsChecked;
             Properties.Settings.Default.Save();
             m_nCycle = 0;
 
+            m_bReadySet = true;
             m_CycleTimer.Start();
             m_CycleStopwatch.Restart();
 
@@ -204,6 +250,7 @@ namespace CycleApp.App
         private void Btn_Stop_Click(object sender, RoutedEventArgs e)
         {
             m_CycleTimer.Stop();
+            m_bReadySet = false;
             TBlo_CycleCount.Text = string.Empty;
             TBlo_CycleTimer.Text = string.Empty;
             Grd_CycleBackground.Background = new SolidColorBrush(Colors.White);
@@ -277,6 +324,18 @@ namespace CycleApp.App
             Window window = (Window)sender;
             window.Left = SystemParameters.WorkArea.Right - window.Width;
             window.Top = SystemParameters.WorkArea.Bottom - window.Height;
+        }
+
+        private void ChkBox_AlwaysVisibleMode_Click(object sender, RoutedEventArgs e)
+        {
+            if (ChkBox_AlwaysVisibleMode.IsChecked == true)
+            {
+                this.Topmost = true;
+            }
+            else
+            {
+                this.Topmost = false;
+            }
         }
     }
 }
