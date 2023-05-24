@@ -60,7 +60,7 @@ namespace CycleApp.App
                 }
                 else
                 {
-                    TBlo_CycleTimer.Text = string.Format("조이는 시간\r\n{0}초\r\n남음", int.Parse(TBox_Time.Text) - (m_CycleStopwatch.ElapsedMilliseconds / 1000));
+                    TBlo_CycleTimer.Text = string.Format("집중 시간\r\n{0}초\r\n남음", int.Parse(TBox_Time.Text) - (m_CycleStopwatch.ElapsedMilliseconds / 1000));
                     if (m_CycleStopwatch.ElapsedMilliseconds > 1000)
                     {
                         if (m_bActivated)
@@ -140,7 +140,7 @@ namespace CycleApp.App
 
             if (int.TryParse(TBox_Time.Text, out nTime) == false)
             {
-                MessageBox.Show("조이는 시간에 잘못된 값을 입력하셨습니다");
+                MessageBox.Show("집중 시간에 잘못된 값을 입력하셨습니다");
                 TBox_Time.Focus();
                 return false;
             }
@@ -148,7 +148,7 @@ namespace CycleApp.App
             {
                 if (nTime > 100 || nTime <= 1)
                 {
-                    MessageBox.Show("조이는 시간에 1이상 100미만 값을 입력해주세요");
+                    MessageBox.Show("집중 시간에 1이상 100미만 값을 입력해주세요");
                     TBox_Time.Focus();
                     return false;
                 }

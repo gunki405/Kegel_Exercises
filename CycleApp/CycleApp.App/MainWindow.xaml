@@ -44,7 +44,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="조이는 시간" />
+                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="집중 시간" />
                 <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="쉬는 시간" />
                 <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="회수" />
                 <TextBox x:Name="TBox_Time" Text="10" Grid.Row="0" Grid.Column="1" Margin="3" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
