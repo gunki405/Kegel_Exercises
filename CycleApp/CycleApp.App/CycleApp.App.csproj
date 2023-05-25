@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>running.ico</ApplicationIcon>
-    <AssemblyVersion>1.0.1.4</AssemblyVersion>
-    <FileVersion>1.0.1.4</FileVersion>
+    <AssemblyVersion>1.1.5</AssemblyVersion>
+    <FileVersion>1.1.5</FileVersion>
     <AssemblyName>Exercise_App</AssemblyName>
   </PropertyGroup>
 
