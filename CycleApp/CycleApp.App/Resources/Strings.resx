@@ -177,4 +177,17 @@ Remained</value>
   <data name="MainWin_TopMost" xml:space="preserve">
     <value>Always Visible Mode</value>
   </data>
+  <data name="Update_DisableUpdateMessage" xml:space="preserve">
+    <value>Do you want to disable update program?</value>
+  </data>
+  <data name="Update_DisableUpdateTitle" xml:space="preserve">
+    <value>Disable update</value>
+  </data>
+  <data name="Update_UpdateMessage" xml:space="preserve">
+    <value>Do you want to Update this Program?
+New version : {0}</value>
+  </data>
+  <data name="Update_UpdateTitle" xml:space="preserve">
+    <value>Detected new version</value>
+  </data>
 </root>

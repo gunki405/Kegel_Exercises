@@ -177,4 +177,17 @@
   <data name="MainWin_TopMost" xml:space="preserve">
     <value>いつも見えるモード</value>
   </data>
+  <data name="Update_DisableUpdateMessage" xml:space="preserve">
+    <value>今後アプリのアップデートを中断しますか？</value>
+  </data>
+  <data name="Update_DisableUpdateTitle" xml:space="preserve">
+    <value>アップデートを中断</value>
+  </data>
+  <data name="Update_UpdateMessage" xml:space="preserve">
+    <value>アプリをアップデートしますか？
+新バージョン : {0}</value>
+  </data>
+  <data name="Update_UpdateTitle" xml:space="preserve">
+    <value>新しいバージョン確認</value>
+  </data>
 </root>

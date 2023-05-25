@@ -82,5 +82,17 @@ namespace CycleApp.App.Properties {
                 this["LanguageSetting"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableUpdate {
+            get {
+                return ((bool)(this["DisableUpdate"]));
+            }
+            set {
+                this["DisableUpdate"] = value;
+            }
+        }
     }
 }

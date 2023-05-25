@@ -10,9 +10,99 @@ using System.Windows.Markup;
 using System.Reflection;
 using System.Collections;
 using System.Threading;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace CycleApp.App
 {
+    public class UpdateChecker
+    {
+
+        private const string GitHubApiUrl = "https://api.github.com/repos/{owner}/{repo}/releases/latest";
+        private const string Owner = "gunki405";
+        private const string Repo = "Kegel_Exercises";
+        private readonly string currentVersion;
+
+        private string strNewVersionDounloadUrl = string.Empty;
+
+        public UpdateChecker(string currentVersion)
+        {
+            this.currentVersion = currentVersion;
+        }
+
+        public bool CheckForUpdate(ref string UpdateCheckResult)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)");
+
+                string apiUrl = GitHubApiUrl.Replace("{owner}", Owner).Replace("{repo}", Repo);
+                Task<HttpResponseMessage> GetAsyncResult = client.GetAsync(apiUrl);
+                HttpResponseMessage response = GetAsyncResult.Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Task<string> ReadAsStringAsyncResult = response.Content.ReadAsStringAsync();
+                    string jsonResponse = ReadAsStringAsyncResult.Result;
+                    dynamic release = JsonConvert.DeserializeObject(jsonResponse);
+
+                    string latestVersion = release.tag_name;
+                    if (IsUpdateAvailable(latestVersion))
+                    {
+                        strNewVersionDounloadUrl = release.assets[0].browser_download_url;
+                        UpdateCheckResult = latestVersion;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        private bool IsUpdateAvailable(string latestVersion)
+        {
+            Version current = new Version(currentVersion);
+            Version latest = new Version(latestVersion);
+
+            return latest > current;
+        }
+
+        public bool DownloadAndInstallUpdate()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string fileName = Path.GetFileName(strNewVersionDounloadUrl);
+                string tempFilePath = Path.Combine(Path.GetTempPath(), fileName);
+
+
+                Task<HttpResponseMessage> GetAsyncResult = client.GetAsync(strNewVersionDounloadUrl);
+                HttpResponseMessage response = GetAsyncResult.Result;
+
+                Task<Stream> ReadAsStreamResult = response.Content.ReadAsStreamAsync();
+                using (Stream contentStream = ReadAsStreamResult.Result)
+                {
+                    using (FileStream fileStream = new FileStream(tempFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                    {
+                        contentStream.CopyTo(fileStream);
+                    }
+                }
+                Process p = new Process();
+                p.StartInfo.FileName = "msiexec";
+                p.StartInfo.Arguments = "/i " + tempFilePath;
+                p.Start();
+                return true;
+            }
+        }
+    }
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -21,17 +111,53 @@ namespace CycleApp.App
         private DispatcherTimer m_CycleTimer;
         private Stopwatch m_CycleStopwatch;
 
-
         private bool m_bReadySet = false;
         private bool m_bRest = false;
         private bool m_bMoreCount = false;
         private int m_nCycle = 0;
 
+
         public MainWindow()
         {
             LanguageSetting();
-
             InitializeComponent();
+
+            if (Properties.Settings.Default.DisableUpdate == false)
+            {
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                Version version = assembly.GetName().Version;
+
+                string currentVersion = version.ToString();
+                string strUpdateText = string.Empty;
+
+                UpdateChecker updateChecker = new UpdateChecker(currentVersion);
+                bool updateAvailable = updateChecker.CheckForUpdate(ref strUpdateText);
+
+                if (updateAvailable)
+                {
+                    MessageBoxResult result = MessageBox.Show(string.Format(CycleApp.App.Resources.Strings.Update_UpdateMessage, strUpdateText), CycleApp.App.Resources.Strings.Update_UpdateTitle, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        if(!updateChecker.DownloadAndInstallUpdate())
+                        {
+                            MessageBox.Show("Update Failed", "Warning");
+                        }
+                        else
+                        {
+                            this.Close();
+                        }
+                    }
+                    else
+                    {
+                        result = MessageBox.Show(CycleApp.App.Resources.Strings.Update_DisableUpdateMessage, CycleApp.App.Resources.Strings.Update_DisableUpdateTitle, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            Properties.Settings.Default.DisableUpdate = true;
+                            Properties.Settings.Default.Save();
+                        }
+                    }
+                }
+            }
 
             TBox_Time.Text = string.Format("{0}", Properties.Settings.Default.Last_ExerciseTime);
             TBox_RestTime.Text = string.Format("{0}", Properties.Settings.Default.Last_RestTime);

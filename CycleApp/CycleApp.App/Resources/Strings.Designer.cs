@@ -233,5 +233,42 @@ namespace CycleApp.App.Resources {
                 return ResourceManager.GetString("MainWin_TopMost", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Do you want to disable update program? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Update_DisableUpdateMessage {
+            get {
+                return ResourceManager.GetString("Update_DisableUpdateMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Disable update に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Update_DisableUpdateTitle {
+            get {
+                return ResourceManager.GetString("Update_DisableUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Do you want to Update this Program?
+        ///New version : {0} に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Update_UpdateMessage {
+            get {
+                return ResourceManager.GetString("Update_UpdateMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Detected new version に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Update_UpdateTitle {
+            get {
+                return ResourceManager.GetString("Update_UpdateTitle", resourceCulture);
+            }
+        }
     }
 }
