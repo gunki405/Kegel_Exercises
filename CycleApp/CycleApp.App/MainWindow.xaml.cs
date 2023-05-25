@@ -7,6 +7,9 @@ using System.Windows.Threading;
 using System.Globalization;
 using System.Resources;
 using System.Windows.Markup;
+using System.Reflection;
+using System.Collections;
+using System.Threading;
 
 namespace CycleApp.App
 {
@@ -21,11 +24,13 @@ namespace CycleApp.App
 
         private bool m_bReadySet = false;
         private bool m_bRest = false;
+        private bool m_bMoreCount = false;
         private int m_nCycle = 0;
-        private int m_nRam = 0;
 
         public MainWindow()
         {
+            LanguageSetting();
+
             InitializeComponent();
 
             TBox_Time.Text = string.Format("{0}", Properties.Settings.Default.Last_ExerciseTime);
@@ -45,9 +50,22 @@ namespace CycleApp.App
             m_CycleStopwatch = new Stopwatch();
         }
 
+        private void LanguageSetting()
+        {
+            string strLanguageCode = Properties.Settings.Default.LanguageSetting;
+            if (string.IsNullOrEmpty(strLanguageCode))
+            {
+                strLanguageCode = "en-US";
+            }
+
+            CultureInfo cultureInfo = new CultureInfo(strLanguageCode);
+
+            System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo;
+        }
+
         private void CycleTimer_CallBack(object sender, EventArgs e)
         {
-            if(ChkBox_AlwaysVisibleMode.IsChecked == true)
+            if (ChkBox_AlwaysVisibleMode.IsChecked == true)
             {
                 this.Topmost = true;
             }
@@ -59,6 +77,27 @@ namespace CycleApp.App
             m_CycleTimer.Stop();
             if (m_nCycle >= int.Parse(TBox_Cycle.Text))
             {
+                if (m_bMoreCount == false)
+                {
+                    Random nMorCount = new Random();
+                    int nMoreCount = nMorCount.Next(int.Parse(TBox_Cycle.Text) / 5);
+
+                    if (nMoreCount > 0)
+                    {
+                        TBlo_CycleCount.Text = string.Empty;
+                        TBlo_CycleTimer.Text = string.Empty;
+
+                        m_bRest = false;
+                        m_bMoreCount = true;
+                        m_bReadySet = true;
+                        m_nCycle -= nMoreCount;
+
+                        m_CycleStopwatch.Restart();
+                        m_CycleTimer.Start();
+                        return;
+                    }
+                }
+
                 m_bReadySet = false;
                 TBlo_Done.Text = CycleApp.App.Resources.Strings.MainWin_EndMessage;
                 TBlo_CycleCount.Text = string.Empty;
@@ -68,21 +107,34 @@ namespace CycleApp.App
                 return;
             }
 
-            if(m_bReadySet)
+            if(m_bMoreCount)
             {
-                switch((int)(m_CycleStopwatch.ElapsedMilliseconds / 1000))
+                TBlo_MoreCount.Text = string.Format(CycleApp.App.Resources.Strings.MainWin_MoreCount, int.Parse(TBox_Cycle.Text) - m_nCycle);
+            }
+            else
+            {
+                TBlo_MoreCount.Text = string.Empty;
+            }
+
+            if (m_bReadySet)
+            {
+                Color color;
+                switch ((int)(m_CycleStopwatch.ElapsedMilliseconds / 1000))
                 {
                     case 0:
-                        Grd_CycleBackground.Background = new SolidColorBrush(Colors.IndianRed);
-                        TBlo_Done.Text = "Ready...3";
+                        color = Color.FromArgb(10, 255, 0, 0);
+                        Grd_CycleBackground.Background = new SolidColorBrush(color);
+                        TBlo_Done.Text = "3";
                         break;
                     case 1:
-                        Grd_CycleBackground.Background = new SolidColorBrush(Colors.LightYellow);
-                        TBlo_Done.Text = "Ready...2";
+                        color = Color.FromArgb(10, 215, 215, 0);
+                        Grd_CycleBackground.Background = new SolidColorBrush(color);
+                        TBlo_Done.Text = "2";
                         break;
                     case 2:
-                        Grd_CycleBackground.Background = new SolidColorBrush(Colors.LightGreen);
-                        TBlo_Done.Text = "Ready...1";
+                        color = Color.FromArgb(10, 0, 255, 0);
+                        Grd_CycleBackground.Background = new SolidColorBrush(color);
+                        TBlo_Done.Text = "1";
                         break;
                     case 3:
                         TBlo_Done.Text = string.Empty;
@@ -241,6 +293,7 @@ namespace CycleApp.App
             m_nCycle = 0;
 
             m_bReadySet = true;
+            m_bMoreCount = false;
             m_CycleTimer.Start();
             m_CycleStopwatch.Restart();
 
@@ -251,11 +304,26 @@ namespace CycleApp.App
         {
             m_CycleTimer.Stop();
             m_bReadySet = false;
+            m_bMoreCount = false;
             TBlo_CycleCount.Text = string.Empty;
             TBlo_CycleTimer.Text = string.Empty;
             Grd_CycleBackground.Background = new SolidColorBrush(Colors.White);
 
             UISetting(false);
+        }
+
+        private void Btn_LangSetting_Click(object sender, RoutedEventArgs e)
+        {
+            Grd_GrayBlock.Visibility = Visibility.Visible;
+
+            Win_LanguageSetting win_Language = new Win_LanguageSetting();
+            win_Language.Owner = this;
+            win_Language.ShowDialog();
+
+            LanguageSetting();
+
+            MessageBoxResult result = MessageBox.Show(this, CycleApp.App.Resources.Strings.LanguageSetting_Restart);
+            Application.Current.Shutdown();
         }
 
         private void Btn_AppClose_Click(object sender, RoutedEventArgs e)
@@ -337,5 +405,6 @@ namespace CycleApp.App
                 this.Topmost = false;
             }
         }
+
     }
 }
