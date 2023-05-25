@@ -100,6 +100,7 @@ namespace CycleApp.App
 
                 m_bReadySet = false;
                 TBlo_Done.Text = CycleApp.App.Resources.Strings.MainWin_EndMessage;
+                TBlo_MoreCount.Text = string.Empty;
                 TBlo_CycleCount.Text = string.Empty;
                 TBlo_CycleTimer.Text = string.Empty;
                 Grd_CycleBackground.Background = new SolidColorBrush(Colors.White);
@@ -267,7 +268,13 @@ namespace CycleApp.App
 
         private void UISetting(bool bStart)
         {
+            TBlo_CycleCount.Text = string.Empty;
+            TBlo_CycleTimer.Text = string.Empty;
+            TBlo_MoreCount.Text = string.Empty;
+            TBlo_Done.Text = string.Empty;
+
             Btn_Start.IsEnabled = !bStart;
+            Btn_LangSetting.IsEnabled = !bStart;
             Btn_Stop.IsEnabled = bStart;
 
             TBox_Time.IsEnabled = !bStart;
@@ -278,8 +285,6 @@ namespace CycleApp.App
         private void Btn_Start_Click(object sender, RoutedEventArgs e)
         {
             m_bRest = false;
-            TBlo_Done.Text = string.Empty;
-
             if (Checking_Values() == false)
             {
                 return;
@@ -305,8 +310,6 @@ namespace CycleApp.App
             m_CycleTimer.Stop();
             m_bReadySet = false;
             m_bMoreCount = false;
-            TBlo_CycleCount.Text = string.Empty;
-            TBlo_CycleTimer.Text = string.Empty;
             Grd_CycleBackground.Background = new SolidColorBrush(Colors.White);
 
             UISetting(false);
