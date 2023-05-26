@@ -397,7 +397,6 @@ namespace CycleApp.App
             TBlo_CycleCount.Text = string.Empty;
             TBlo_CycleTimer.Text = string.Empty;
             TBlo_MoreCount.Text = string.Empty;
-            TBlo_Done.Text = string.Empty;
 
             Btn_Start.IsEnabled = !bStart;
             Btn_LangSetting.IsEnabled = !bStart;
@@ -428,6 +427,7 @@ namespace CycleApp.App
             m_CycleTimer.Start();
             m_CycleStopwatch.Restart();
 
+            TBlo_Done.Text = string.Empty;
             UISetting(true);
         }
 
@@ -438,6 +438,7 @@ namespace CycleApp.App
             m_bMoreCount = false;
             Grd_CycleBackground.Background = new SolidColorBrush(Colors.White);
 
+            TBlo_Done.Text = string.Empty;
             UISetting(false);
         }
 
@@ -445,14 +446,21 @@ namespace CycleApp.App
         {
             Grd_GrayBlock.Visibility = Visibility.Visible;
 
+            string strBufferLanguage = Properties.Settings.Default.LanguageSetting;
+
             Win_LanguageSetting win_Language = new Win_LanguageSetting();
             win_Language.Owner = this;
             win_Language.ShowDialog();
 
-            LanguageSetting();
+            if(Properties.Settings.Default.LanguageSetting != strBufferLanguage)
+            {
+                LanguageSetting();
 
-            MessageBoxResult result = MessageBox.Show(this, CycleApp.App.Resources.Strings.LanguageSetting_Restart);
-            Application.Current.Shutdown();
+                MessageBoxResult result = MessageBox.Show(this, CycleApp.App.Resources.Strings.LanguageSetting_Restart);
+                Application.Current.Shutdown();
+                return;
+            }
+            Grd_GrayBlock.Visibility = Visibility.Hidden;
         }
 
         private void Btn_AppClose_Click(object sender, RoutedEventArgs e)
@@ -477,7 +485,7 @@ namespace CycleApp.App
             TextBox textBox = (TextBox)sender;
 
             int maxValue = 100;
-            int minValue = 1;
+            int minValue = 2;
 
             if (int.Parse(textBox.Text) > maxValue)
             {
@@ -499,7 +507,7 @@ namespace CycleApp.App
             TextBox textBox = (TextBox)sender;
 
             int maxValue = 50;
-            int minValue = 1;
+            int minValue = 2;
 
             if (int.Parse(textBox.Text) > maxValue)
             {

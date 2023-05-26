@@ -37,6 +37,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -166,15 +174,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Exercise App"
-        "ProductCode" = "8:{C6729FB6-A7E8-4C6C-8733-5178B29906D6}"
-        "PackageCode" = "8:{390E8C69-4B2D-45E3-9FC4-EC6CF78053F3}"
-        "UpgradeCode" = "8:{7D277D51-C671-4C2E-9FA1-FCC1A5DDFAF2}"
+        "ProductCode" = "8:{7D6D571B-81B3-47D8-967E-5D2C00CA4CDB}"
+        "PackageCode" = "8:{1D0DA29E-ABED-4802-B5D7-88B48C4FC6BE}"
+        "UpgradeCode" = "8:{0E6BA363-30F0-4C3C-9464-A4FFFC5C4751}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.5"
+        "ProductVersion" = "8:1.1.6"
         "Manufacturer" = "8:pcadmin"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
