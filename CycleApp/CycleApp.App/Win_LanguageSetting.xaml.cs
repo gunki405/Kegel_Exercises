@@ -86,5 +86,13 @@ namespace CycleApp.App
         {
             this.Close();
         }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Btn_Close.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }
+        }
     }
 }

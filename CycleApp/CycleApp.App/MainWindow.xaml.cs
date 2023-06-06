@@ -14,6 +14,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
+using System.Windows.Input;
 
 namespace CycleApp.App
 {
@@ -111,6 +112,7 @@ namespace CycleApp.App
         private DispatcherTimer m_CycleTimer;
         private Stopwatch m_CycleStopwatch;
 
+        private bool m_bExercising = false;
         private bool m_bReadySet = false;
         private bool m_bRest = false;
         private bool m_bMoreCount = false;
@@ -429,6 +431,8 @@ namespace CycleApp.App
 
             TBlo_Done.Text = string.Empty;
             UISetting(true);
+
+            m_bExercising = true;
         }
 
         private void Btn_Stop_Click(object sender, RoutedEventArgs e)
@@ -440,6 +444,8 @@ namespace CycleApp.App
 
             TBlo_Done.Text = string.Empty;
             UISetting(false);
+
+            m_bExercising = false;
         }
 
         private void Btn_LangSetting_Click(object sender, RoutedEventArgs e)
@@ -543,5 +549,24 @@ namespace CycleApp.App
             }
         }
 
+        private void Window_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                if(m_bExercising == false)
+                {
+                    Btn_Start.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                }
+                else
+                {
+                    Btn_Stop.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                }
+            }
+            else if (e.Key == Key.Escape)
+            {
+                Btn_AppClose.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }
+
+        }
     }
 }

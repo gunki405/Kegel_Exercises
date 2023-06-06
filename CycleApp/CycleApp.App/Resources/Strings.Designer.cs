@@ -88,7 +88,8 @@ namespace CycleApp.App.Resources {
         }
         
         /// <summary>
-        ///   Close に類似しているローカライズされた文字列を検索します。
+        ///   Close
+        ///(esc) に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MainWin_CloseButton {
             get {
@@ -208,7 +209,8 @@ namespace CycleApp.App.Resources {
         }
         
         /// <summary>
-        ///   Start に類似しているローカライズされた文字列を検索します。
+        ///   Start
+        ///(Space) に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MainWin_StartButton {
             get {
@@ -217,7 +219,8 @@ namespace CycleApp.App.Resources {
         }
         
         /// <summary>
-        ///   Stop に類似しているローカライズされた文字列を検索します。
+        ///   Stop
+        ///(Space) に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MainWin_StopButton {
             get {

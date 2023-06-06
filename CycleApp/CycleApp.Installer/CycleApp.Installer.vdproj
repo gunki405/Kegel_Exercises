@@ -44,6 +44,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -174,15 +182,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Exercise App"
-        "ProductCode" = "8:{7D6D571B-81B3-47D8-967E-5D2C00CA4CDB}"
-        "PackageCode" = "8:{1D0DA29E-ABED-4802-B5D7-88B48C4FC6BE}"
-        "UpgradeCode" = "8:{0E6BA363-30F0-4C3C-9464-A4FFFC5C4751}"
+        "ProductCode" = "8:{06DDBBE2-9808-4FB4-B917-575B81FFCE9C}"
+        "PackageCode" = "8:{980CA40C-E010-436F-A74D-649761B08938}"
+        "UpgradeCode" = "8:{76F3EFD9-9637-4148-8512-BAEAF9EF63B0}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.6"
+        "ProductVersion" = "8:1.1.7"
         "Manufacturer" = "8:pcadmin"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

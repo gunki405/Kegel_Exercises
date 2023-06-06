@@ -7,6 +7,7 @@
         xmlns:resc = "clr-namespace:CycleApp.App.Resources"
         mc:Ignorable="d"
         WindowStyle="None" WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        PreviewKeyDown="Window_PreviewKeyDown"
         Title="Win_LanguageSetting" Height="180" Width="230">
     <Grid>
         <Grid.RowDefinitions>

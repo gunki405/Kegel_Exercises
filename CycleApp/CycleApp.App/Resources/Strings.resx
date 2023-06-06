@@ -127,7 +127,8 @@
     <value>Lnaguage Setting</value>
   </data>
   <data name="MainWin_CloseButton" xml:space="preserve">
-    <value>Close</value>
+    <value>Close
+(esc)</value>
   </data>
   <data name="MainWin_CycleCountTitle" xml:space="preserve">
     <value>Exercise Count</value>
@@ -169,10 +170,12 @@ Remained</value>
     <value>Sec</value>
   </data>
   <data name="MainWin_StartButton" xml:space="preserve">
-    <value>Start</value>
+    <value>Start
+(Space)</value>
   </data>
   <data name="MainWin_StopButton" xml:space="preserve">
-    <value>Stop</value>
+    <value>Stop
+(Space)</value>
   </data>
   <data name="MainWin_TopMost" xml:space="preserve">
     <value>Always Visible Mode</value>

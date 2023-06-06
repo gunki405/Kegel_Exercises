@@ -127,7 +127,8 @@
     <value>언어 설정</value>
   </data>
   <data name="MainWin_CloseButton" xml:space="preserve">
-    <value>종료</value>
+    <value>종료
+(esc)</value>
   </data>
   <data name="MainWin_CycleCountTitle" xml:space="preserve">
     <value>회수</value>
@@ -169,10 +170,12 @@
     <value>초</value>
   </data>
   <data name="MainWin_StartButton" xml:space="preserve">
-    <value>시작</value>
+    <value>시작
+(Space)</value>
   </data>
   <data name="MainWin_StopButton" xml:space="preserve">
-    <value>중지</value>
+    <value>중지
+(Space)</value>
   </data>
   <data name="MainWin_TopMost" xml:space="preserve">
     <value>항상 보이기 모드</value>

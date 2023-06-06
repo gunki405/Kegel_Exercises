@@ -7,7 +7,7 @@
         xmlns:resc = "clr-namespace:CycleApp.App.Resources"
         mc:Ignorable="d"
         WindowStyle="None" WindowStartupLocation="Manual" ResizeMode="NoResize"
-        Loaded="Window_Loaded"
+        Loaded="Window_Loaded" PreviewKeyDown="Window_PreviewKeyDown"
         Title="MainWindow" Height="200" Width="300">
     <Grid>
         <Grid x:Name="Grd_CycleBackground">
@@ -82,10 +82,26 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button x:Name="Btn_Start" Grid.Row="0" Margin="5" Content="{x:Static resc:Strings.MainWin_StartButton}" Click="Btn_Start_Click"/>
-                <Button x:Name="Btn_Stop" Grid.Row="1" Margin="5" Content="{x:Static resc:Strings.MainWin_StopButton}" Click="Btn_Stop_Click" IsEnabled="False"/>
-                <Button x:Name="Btn_LangSetting" Grid.Row="2" Margin="5" Content="{x:Static resc:Strings.MainWin_LangSetting}" Click="Btn_LangSetting_Click"/>
-                <Button x:Name="Btn_AppClose" Grid.Row="3" Margin="5" Content="{x:Static resc:Strings.MainWin_CloseButton}" Click="Btn_AppClose_Click"/>
+                <Button x:Name="Btn_Start" Grid.Row="0" Margin="5" Click="Btn_Start_Click">
+                    <Button.Content>
+                        <TextBlock Text="{x:Static resc:Strings.MainWin_StartButton}" TextAlignment="Center"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="Btn_Stop" Grid.Row="1" Margin="5" Click="Btn_Stop_Click" IsEnabled="False">
+                    <Button.Content>
+                        <TextBlock Text="{x:Static resc:Strings.MainWin_StopButton}" TextAlignment="Center"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="Btn_LangSetting" Grid.Row="2" Margin="5" Click="Btn_LangSetting_Click">
+                    <Button.Content>
+                        <TextBlock Text="{x:Static resc:Strings.MainWin_LangSetting}" TextAlignment="Center"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="Btn_AppClose" Grid.Row="3" Margin="5" Click="Btn_AppClose_Click">
+                    <Button.Content>
+                        <TextBlock Text="{x:Static resc:Strings.MainWin_CloseButton}" TextAlignment="Center"/>
+                    </Button.Content>
+                </Button>
             </Grid>
         </Grid>
         <Grid x:Name="Grd_GrayBlock" Background="#55000000" Visibility="Hidden"/>

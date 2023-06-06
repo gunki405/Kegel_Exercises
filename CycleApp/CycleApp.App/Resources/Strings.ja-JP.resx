@@ -127,7 +127,8 @@
     <value>言語設定</value>
   </data>
   <data name="MainWin_CloseButton" xml:space="preserve">
-    <value>終了</value>
+    <value>終了
+(esc)</value>
   </data>
   <data name="MainWin_CycleCountTitle" xml:space="preserve">
     <value>回数</value>
@@ -169,10 +170,12 @@
     <value>秒</value>
   </data>
   <data name="MainWin_StartButton" xml:space="preserve">
-    <value>開始</value>
+    <value>開始
+(Space)</value>
   </data>
   <data name="MainWin_StopButton" xml:space="preserve">
-    <value>中止</value>
+    <value>中止
+(Space)</value>
   </data>
   <data name="MainWin_TopMost" xml:space="preserve">
     <value>いつも見えるモード</value>
