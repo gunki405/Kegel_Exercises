@@ -118,6 +118,8 @@ namespace CycleApp.App
         private bool m_bMoreCount = false;
         private int m_nCycle = 0;
 
+        int m_nCurAllExerciseTime = 0;
+        int m_nCurAllExerciseCount = 0;
 
         public MainWindow()
         {
@@ -176,6 +178,8 @@ namespace CycleApp.App
             m_CycleTimer.Tick += CycleTimer_CallBack;
 
             m_CycleStopwatch = new Stopwatch();
+
+            PrintExerciseLog();
         }
 
         private void LanguageSetting()
@@ -282,6 +286,13 @@ namespace CycleApp.App
                 {
                     m_nCycle++;
                     m_bRest = true;
+
+                    m_nCurAllExerciseTime += int.Parse(TBox_Time.Text);
+                    m_nCurAllExerciseCount++;
+
+                    TBlo_CurDateExerciseTime.Text = string.Format("{0}", Properties.Settings.Default.Date_AllExerciseTime + m_nCurAllExerciseTime);
+                    TBlo_CurDateExerciseCount.Text = string.Format("{0}", Properties.Settings.Default.Date_AllExerciseCount + m_nCurAllExerciseCount);
+
                     m_CycleStopwatch.Restart();
                 }
                 else
@@ -445,6 +456,8 @@ namespace CycleApp.App
             TBlo_Done.Text = string.Empty;
             UISetting(false);
 
+            WriteExerciseLog();
+
             m_bExercising = false;
         }
 
@@ -471,6 +484,8 @@ namespace CycleApp.App
 
         private void Btn_AppClose_Click(object sender, RoutedEventArgs e)
         {
+            WriteExerciseLog();
+
             this.Close();
         }
 
@@ -566,7 +581,40 @@ namespace CycleApp.App
             {
                 Btn_AppClose.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
+        }
 
+        private void WriteExerciseLog()
+        {
+            DateTime CurrentDateTime = DateTime.Now;
+
+            int nExerciseAllTime = Properties.Settings.Default.Date_AllExerciseTime;
+            int nExerciseAllCount = Properties.Settings.Default.Date_AllExerciseCount;
+
+            if (Properties.Settings.Default.Last_ExerciseDate.Date != CurrentDateTime.Date)
+            {
+                nExerciseAllTime = 0;
+                nExerciseAllCount = 0;
+            }
+
+            nExerciseAllTime += m_nCurAllExerciseTime;
+            nExerciseAllCount += m_nCurAllExerciseCount;
+
+            Properties.Settings.Default.Date_AllExerciseTime = nExerciseAllTime;
+            Properties.Settings.Default.Date_AllExerciseCount = nExerciseAllCount;
+            Properties.Settings.Default.Last_ExerciseDate = DateTime.Now;
+            Properties.Settings.Default.Save();
+
+            m_nCurAllExerciseCount = 0;
+            m_nCurAllExerciseTime = 0;
+
+            PrintExerciseLog();
+        }
+
+        private void PrintExerciseLog()
+        {
+            TBlo_LastExcerciseDate.Text = Properties.Settings.Default.Last_ExerciseDate.ToString("yyyy/MM/dd");
+            TBlo_CurDateExerciseTime.Text = string.Format("{0}", Properties.Settings.Default.Date_AllExerciseTime);
+            TBlo_CurDateExerciseCount.Text = string.Format("{0}", Properties.Settings.Default.Date_AllExerciseCount);
         }
     }
 }

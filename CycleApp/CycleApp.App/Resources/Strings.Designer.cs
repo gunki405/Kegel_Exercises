@@ -152,6 +152,33 @@ namespace CycleApp.App.Resources {
         }
         
         /// <summary>
+        ///   Last Concentrate Date に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWin_LastExerciseDate {
+            get {
+                return ResourceManager.GetString("MainWin_LastExerciseDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   All Concentrate Count に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWin_LastExerciseDateAllExerciseCount {
+            get {
+                return ResourceManager.GetString("MainWin_LastExerciseDateAllExerciseCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   All Concentrate Time に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWin_LastExerciseDateAllExerciseTime {
+            get {
+                return ResourceManager.GetString("MainWin_LastExerciseDateAllExerciseTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   {0} mor times Cheer Up に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MainWin_MoreCount {

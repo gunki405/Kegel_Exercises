@@ -94,5 +94,40 @@ namespace CycleApp.App.Properties {
                 this["DisableUpdate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime Last_ExerciseDate {
+            get {
+                return ((global::System.DateTime)(this["Last_ExerciseDate"]));
+            }
+            set {
+                this["Last_ExerciseDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Date_AllExerciseTime {
+            get {
+                return ((int)(this["Date_AllExerciseTime"]));
+            }
+            set {
+                this["Date_AllExerciseTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Date_AllExerciseCount {
+            get {
+                return ((int)(this["Date_AllExerciseCount"]));
+            }
+            set {
+                this["Date_AllExerciseCount"] = value;
+            }
+        }
     }
 }

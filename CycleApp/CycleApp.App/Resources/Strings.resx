@@ -148,6 +148,15 @@
   <data name="MainWin_LangSetting" xml:space="preserve">
     <value>Lnaguage</value>
   </data>
+  <data name="MainWin_LastExerciseDate" xml:space="preserve">
+    <value>Last Concentrate Date</value>
+  </data>
+  <data name="MainWin_LastExerciseDateAllExerciseCount" xml:space="preserve">
+    <value>All Concentrate Count</value>
+  </data>
+  <data name="MainWin_LastExerciseDateAllExerciseTime" xml:space="preserve">
+    <value>All Concentrate Time</value>
+  </data>
   <data name="MainWin_MoreCount" xml:space="preserve">
     <value>{0} mor times Cheer Up</value>
   </data>
