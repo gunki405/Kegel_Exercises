@@ -290,8 +290,7 @@ namespace CycleApp.App
                     m_nCurAllExerciseTime += int.Parse(TBox_Time.Text);
                     m_nCurAllExerciseCount++;
 
-                    TBlo_CurDateExerciseTime.Text = string.Format("{0}", Properties.Settings.Default.Date_AllExerciseTime + m_nCurAllExerciseTime);
-                    TBlo_CurDateExerciseCount.Text = string.Format("{0}", Properties.Settings.Default.Date_AllExerciseCount + m_nCurAllExerciseCount);
+                    WriteExerciseLog();
 
                     m_CycleStopwatch.Restart();
                 }
